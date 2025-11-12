@@ -1,0 +1,39 @@
+{
+  "name": "keybin",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "scripts": {
+    "dev:node": "tsx src/server.ts",
+    "dev:worker": "wrangler dev src/worker.ts --local",
+    "build": "pnpm --filter keybin-frontend build && tsup src/server.ts src/worker.ts --format esm --splitting false --sourcemap --out-dir dist --target node20 --external better-sqlite3 && mkdir -p dist && cp -r frontend/dist dist/client",
+    "db:generate": "drizzle-kit generate --config drizzle.config.ts",
+    "db:migrate": "drizzle-kit migrate --config drizzle.config.ts"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.8.0",
+    "@simplewebauthn/server": "^10.1.0",
+    "better-sqlite3": "^9.5.0",
+    "drizzle-orm": "^0.30.0",
+    "hono": "^4.3.7",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240605.0",
+    "@typescript-eslint/eslint-plugin": "^7.9.0",
+    "@typescript-eslint/parser": "^7.9.0",
+    "@types/better-sqlite3": "^7.6.9",
+    "@types/node": "^20.12.7",
+    "drizzle-kit": "^0.26.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^3.2.5",
+    "tsup": "^8.0.2",
+    "tsx": "^4.7.1",
+    "typescript": "^5.4.5"
+  },
+  "pnpm": {
+    "patchedDependencies": {}
+  }
+}
